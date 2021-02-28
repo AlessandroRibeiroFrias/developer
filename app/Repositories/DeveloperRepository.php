@@ -41,7 +41,7 @@ class DeveloperRepository {
         $developerChange->idade = $dados->idade;
         $developerChange->hobby = $dados->hobby;
         $developerChange->datanascimento = $dados->datanascimento;
-        $developerChange->save();
+        return $developerChange->save();
    }
 
    public function destroy($developerDelete, $id)
@@ -51,12 +51,11 @@ class DeveloperRepository {
 
    public function store($dados)
    {
-        Log::debug('aqui');
         $this->developer->nome = $dados->nome;
         $this->developer->sexo = $dados->sexo;
         $this->developer->idade = $dados->idade;
         $this->developer->hobby = $dados->hobby;
         $this->developer->datanascimento = $dados->datanascimento;
-        $this->developer->save();
+        return $this->developer->save();
    }
 }

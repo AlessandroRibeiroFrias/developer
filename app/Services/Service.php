@@ -43,7 +43,7 @@ class Service{
         
         if(!$dadosChange)
         {
-            return ResponseDefault::retorno([], 404);
+            return ResponseDefault::retorno(['Erro ao recuperar informações.'], 422);
         }
 
         if($this->repository->getRules() && $this->repository->getMessage())
@@ -57,9 +57,11 @@ class Service{
         }
         
 
-        $this->repository->update($dadosChange, $dados);
+        if($this->repository->update($dadosChange, $dados)){
+			return ResponseDefault::retorno(['Sucesso ao atualizar o registro'], 200);
+		};
 
-        return ResponseDefault::retorno([], 200);
+		return ResponseDefault::retorno(['Erro ao atualizar registro.'], 400);
 
     }
 
@@ -90,9 +92,11 @@ class Service{
             }
         }
 
-        $this->repository->store($dados);
+        if($this->repository->store($dados)){
+            return ResponseDefault::retorno(['Registro salvo com sucesso.'], 200);  
+        };
 
-        return ResponseDefault::retorno(['Registro salvo com sucesso.'], 200);
+        return ResponseDefault::retorno(['Erro ao salvar o registro.'], 400);
 
     }
 
