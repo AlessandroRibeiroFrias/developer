@@ -22,6 +22,8 @@ class DeveloperSeeder extends Seeder
                 , 'idade' => 28
                 , 'hobby' => 'Jogador de xadrez'
                 , 'datanascimento' => Carbon::create('1993','01','13')
+                , 'created_at' => Carbon::create('2021','02','03')
+                , 'updated_at' => Carbon::create('2021','02','03')
             ]
             , [
                 'nome' => 'Mario de Andrade Souza'
@@ -29,6 +31,8 @@ class DeveloperSeeder extends Seeder
                 , 'idade' => 27
                 , 'hobby' => 'Piloto de Kart'
                 , 'datanascimento' => Carbon::create('1993','06','17')
+                , 'created_at' => Carbon::create('2021','02','03')
+                , 'updated_at' => Carbon::create('2021','02','03')
             ]
         ];
 
