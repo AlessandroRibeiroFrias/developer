@@ -1,10 +1,10 @@
 <template>
 <div id="editEmployeeModal" class="">
-    <form>
+    <form v-if="currentDeveloper"> 
         <h3>Editar Developer</h3>
-            <div class="form-group">
+            <div class="form-group" >
                 <label>Nome</label>
-                <input type="text" class="form-control" v-model="currentDeveloper.nome" required>
+                <input type="text" class="form-control" v-model="currentDeveloper.nome" id="nome">
             </div>
             <div class="form-group">
                 <label>Sexo</label>
@@ -12,7 +12,7 @@
             </div>
             <div class="form-group">
                 <label>Idade</label>
-                <input type="text" class="form-control" v-model="currentDeveloper.idade" value="" required>
+                <input type="text" class="form-control" v-model="currentDeveloper.idade" required>
             </div>
             <div class="form-group">
                 <label>Data de Nascimento</label>
@@ -24,9 +24,10 @@
             </div>		
         <div class="modal-footer">
             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-            <input type="submit" class="btn btn-info" value="Save">
+            <input type="submit" class="btn btn-info" value="Salvar" @click="updateDeveloper">
         </div>
     </form>
+    <p>{{ message }}</p>
 </div>
 </template>
 
@@ -71,11 +72,12 @@ export default {
         });
     },
 
-    updateTutorial() {
+    updateDeveloper() {
       TutorialDataService.update(this.currentDeveloper.id, this.currentDeveloper)
         .then(response => {
           console.log(response.data);
-          this.message = 'The tutorial was updated successfully!';
+          setTimeout(() => { console.log(response.data); }, 5000);
+          this.message = 'Developer atualizado com sucesso';
         })
         .catch(e => {
           console.log(e);
