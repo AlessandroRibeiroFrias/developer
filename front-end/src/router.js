@@ -26,7 +26,7 @@ export default new Router({
     {
       path: "/add",
       name: "add",
-      component: () => import("./components/AddTutorial")
+      component: () => import("./components/AddDeveloper")
     }
   ]
 });

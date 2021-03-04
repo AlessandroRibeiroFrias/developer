@@ -8,7 +8,8 @@
 						<h2><b>Developers</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Adicionar Developer</span></a>
+            <!-- <router-link :to="'/developers/' + developer.id" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></router-link> -->
+						<router-link :to="'/add'" class="btn btn-success"><i class="material-icons">&#xE147;</i> <span>Adicionar Developer</span></router-link>
 						<!-- <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						 -->
 					</div>
 				</div>
@@ -33,8 +34,8 @@
                         <td>{{ developer.hobby }}</td>
                         <td>
                             <!-- <a href="'/tutorials/' + developer.id" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> -->
-                            <router-link :to="'/developers/' + developer.id" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></router-link>
-                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <router-link :to="'/developers/' + developer.id" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></router-link>
+                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Deletar">&#xE872;</i></a>
                         </td>
                     </tr>
                 </tbody>

@@ -6,11 +6,11 @@ class DeveloperDataService {
   }
 
   get(id) {
-    return http.get(`/tutorials/${id}`);
+    return http.get(`/developers/${id}`);
   }
 
   create(data) {
-    return http.post("/tutorials", data);
+    return http.post("/developers", data);
   }
 
   update(id, data) {
