@@ -1,7 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
+import Vuelidate from 'vuelidate'
 
-Vue.use(Router);
+Vue.use(Router, Vuelidate);
 
 export default new Router({
   mode: "history",

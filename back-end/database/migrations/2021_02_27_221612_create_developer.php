@@ -15,10 +15,10 @@ class CreateDeveloper extends Migration
     {
         Schema::create('developer', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nome', 100);
+            $table->string('nome', 50);
             $table->char('sexo', 1);
             $table->integer('idade');
-            $table->string('hobby', 80);
+            $table->string('hobby', 100);
             $table->date('datanascimento');
             $table->timestamps();
         });

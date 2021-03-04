@@ -36,6 +36,7 @@ class DeveloperRepository {
 
    public function update($developerChange, $dados)
    {
+        Log::debug($dados);
         $developerChange->nome = $dados->nome;
         $developerChange->sexo = $dados->sexo;
         $developerChange->idade = $dados->idade;
