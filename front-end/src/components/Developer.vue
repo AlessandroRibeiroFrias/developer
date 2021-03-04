@@ -8,23 +8,31 @@
         </div>
         <div class="error alert alert-danger" role="alert" v-if="!$v.nome.required">Nome é obrigatório</div>
         <div class="error alert alert-danger" role="alert" v-if="!$v.nome.minLength">O nome deve ter pelo menos {{$v.nome.$params.minLength.min}} letras.</div>
+        <div class="error alert alert-danger" role="alert" v-if="!$v.nome.maxLength">O nome deve ter no máximo {{$v.nome.$params.maxLength.max}} letras.</div>
         
-        <div class="form-group" :class="{ 'form-group--error': $v.sexo.$error }">
-            <label>Sexo</label>
-            <input type="text" class="form-control" v-model.trim="sexo"  @input="setSexo($event.target.value)">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group" :class="{ 'form-group--error': $v.sexo.$error }">
+                <label>Sexo</label>
+                <input type="text" class="form-control" v-model.trim="sexo"  @input="setSexo($event.target.value)">
+            </div>
+            <div class="error alert alert-danger" role="alert" v-if="!$v.sexo.required">Sexo é obrigatório</div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Idade</label>
+                <input type="text" class="form-control" v-model="currentDeveloper.idade" required>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group" :class="{ 'form-group--error': $v.datanascimento.$error }">
+                <label>Data de Nascimento</label>
+                <input type="date" class="form-control" v-model.trim="datanascimento"  @input="setDataNascimento($event.target.value)">
+            </div>
+            <div class="error alert alert-danger" role="alert" v-if="!$v.datanascimento.required">Data de Nascimento é obrigatório</div>
+          </div>
         </div>
-        <div class="error alert alert-danger" role="alert" v-if="!$v.sexo.required">Sexo é obrigatório</div>
 
-        <div class="form-group">
-            <label>Idade</label>
-            <input type="text" class="form-control" v-model="currentDeveloper.idade" required>
-        </div>
-
-        <div class="form-group" :class="{ 'form-group--error': $v.datanascimento.$error }">
-            <label>Data de Nascimento</label>
-            <input type="date" class="form-control" v-model.trim="datanascimento"  @input="setDataNascimento($event.target.value)">
-        </div>
-        <div class="error alert alert-danger" role="alert" v-if="!$v.datanascimento.required">Data de Nascimento é obrigatório</div>
 
         <div class="form-group" :class="{ 'form-group--error': $v.hobby.$error }">
             <label>Hobby</label>
@@ -32,10 +40,11 @@
         </div>		
         <div class="error alert alert-danger" role="alert" v-if="!$v.hobby.required">Hobby é obrigatório</div>
         <div class="error alert alert-danger" role="alert" v-if="!$v.hobby.minLength">O hobby deve ter pelo menos {{$v.hobby.$params.minLength.min}} letras.</div>
+        <div class="error alert alert-danger" role="alert" v-if="!$v.hobby.maxLength">O nome deve ter no máximo {{$v.hobby.$params.maxLength.max}} letras.</div>
 
         <div class="modal-footer">
-            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-            <input type="button" class="btn btn-info" value="Salvar" @click="updateDeveloper" :disabled="disabled">
+            <input type="button" class="btn btn-default" value="Cancel" @click="returnList">
+            <input type="button" class="btn btn-info"    value="Salvar" @click="updateDeveloper" :disabled="disabled">
         </div>
     </form>
     <p>{{ message }}</p>
@@ -45,9 +54,7 @@
 
 <script>
 import TutorialDataService from "../services/TutorialDataService";
-// import { required, minLength } from '../ vuelidate/lib/validators';
-
-import { required, minLength } from '../../node_modules/vuelidate/lib/validators';
+import { required, minLength, maxLength } from '../../node_modules/vuelidate/lib/validators';
 
 export default {
   name: "developer",
@@ -66,7 +73,8 @@ export default {
   validations: {
     nome: {
       required,
-      minLength: minLength(4)
+      minLength: minLength(4),
+      maxLength: maxLength(50)
     },
     sexo:{
       required
@@ -76,14 +84,15 @@ export default {
     },
     hobby:{
       required,
-      minLength: minLength(4)
+      minLength: minLength(4),
+      maxLength: maxLength(100)
     }
   },
   methods: {
     setNome(value) {
       this.nome = value
       this.$v.nome.$touch()
-      this.disabled = (!this.$v.nome.required || !this.$v.nome.minLength);
+      this.disabled = (!this.$v.nome.required || !this.$v.nome.minLength || !this.$v.nome.maxLength);
     },
 
     setSexo(value) {
@@ -99,7 +108,7 @@ export default {
     setHobby(value) {
       this.hobby = value
       this.$v.hobby.$touch()
-      this.disabled = (!this.$v.hobby.required || !this.$v.hobby.minLength);
+      this.disabled = (!this.$v.hobby.required || !this.$v.hobby.minLength || !this.$v.nome.maxLength);
     },
 
     getDeveloper(id) {
@@ -127,6 +136,9 @@ export default {
         .catch(e => {
           console.log(e);
         });
+    },
+    returnList(){
+      this.$router.push({ name: "developers" });
     }
   },
   mounted() {
