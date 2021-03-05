@@ -36,7 +36,6 @@ class DeveloperRepository {
 
    public function update($developerChange, $dados)
    {
-        Log::debug($dados);
         $developerChange->nome = $dados->nome;
         $developerChange->sexo = $dados->sexo;
         $developerChange->idade = $dados->idade;
@@ -47,7 +46,7 @@ class DeveloperRepository {
 
    public function destroy($developerDelete, $id)
    {
-        $developerDelete->delete($id);
+        return $developerDelete->delete($id);
    }
 
    public function store($dados)

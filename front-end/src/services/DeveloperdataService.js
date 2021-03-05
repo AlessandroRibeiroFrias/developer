@@ -14,20 +14,12 @@ class DeveloperDataService {
   }
 
   update(id, data) {
-    return http.put(`/tutorials/${id}`, data);
+    return http.put(`/developers/${id}`, data);
   }
 
   delete(id) {
-    return http.delete(`/tutorials/${id}`);
-  }
-
-  deleteAll() {
-    return http.delete(`/tutorials`);
-  }
-
-  findByTitle(title) {
-    return http.get(`/tutorials?title=${title}`);
+    return http.delete(`/developers/${id}`);
   }
 }
 
-export default new TutorialDataService();
+export default new DeveloperDataService();

@@ -13,7 +13,10 @@
       <div class="col-md-4">
         <div class="form-group" :class="{ 'form-group--error': $v.sexo.$error }">
             <label>Sexo</label>
-            <input type="text" class="form-control" @focusout="requiredSexo" v-model.trim="sexo"  @input="setSexo($event.target.value)">
+             <select class="form-control" @focusout="requiredSexo" v-model.trim="sexo" @change="setSexo($event.target.value)" aria-label="Selecione">
+                <option value="M">Masculino</option>
+                <option value="F">Feminino</option>
+              </select>
         </div>
         <div class="error alert alert-danger" role="alert" v-if="!$v.sexo.required && !sexoRequired">Sexo é obrigatório</div>
       </div>
@@ -43,7 +46,7 @@
 
     <div class="modal-footer">
         <input type="button" class="btn btn-default" value="Cancel" @click="returnList">
-        <input type="button" class="btn btn-info"    value="Salvar" @click="saveDeveloper" :disabled="disabled">
+        <input type="button" class="btn btn-success"    value="Salvar" @click="saveDeveloper" :disabled="$v.$invalid">
     </div>
   <p>{{ message }}</p>
 </div>
@@ -51,7 +54,7 @@
 </template>
 
 <script>
-import TutorialDataService from "../services/TutorialDataService";
+import DeveloperDataService from "../services/DeveloperDataService";
 import { required, minLength, maxLength } from '../../node_modules/vuelidate/lib/validators';
 
 export default {
@@ -74,7 +77,6 @@ export default {
 
 
       message: '',
-      disabled: true,
       submitted: false
     };
   },
@@ -99,25 +101,21 @@ export default {
   methods: {
     setNome(value) {
       this.nome = value
-      console.log(value);
-      this.$v.nome.$touch()
-      this.disabled = (!this.$v.nome.required || !this.$v.nome.minLength || !this.$v.nome.maxLength);
+      console.log(this.$v.$invalid);
+      this.$v.nome.$touch();
     },
 
     setSexo(value) {
       this.sexo = value
-      this.$v.sexo.$touch()
-      this.disabled = (!this.$v.sexo.required);
+      this.$v.sexo.$touch();
     },
     setDataNascimento(value) {
       this.datanascimento = value
-      this.$v.datanascimento.$touch()
-      this.disabled = (!this.$v.datanascimento.required);
+      this.$v.datanascimento.$touch();
     },
     setHobby(value) {
       this.hobby = value
-      this.$v.hobby.$touch()
-      this.disabled = (!this.$v.hobby.required || !this.$v.hobby.minLength || !this.$v.nome.maxLength);
+      this.$v.hobby.$touch();
     },
     requiredName(){
       this.nomeRequired = (this.$v.nome.required && this.$v.nome.minLength && this.$v.nome.maxLength);
@@ -140,11 +138,10 @@ export default {
         hobby: this.hobby
       };
 
-      TutorialDataService.create(data)
+      DeveloperDataService.create(data)
         .then(response => {
-          // this.tutorial.id = response.data.id;
-          console.log(response.data);
-          // this.submitted = true;
+          this.message = response.data.data[0];
+          setTimeout(() => this.$router.push({ name: "developers" }), 1500);
         })
         .catch(e => {
           console.log(e);

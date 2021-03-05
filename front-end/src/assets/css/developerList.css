@@ -163,6 +163,7 @@ table.table .avatar {
 	box-sizing: border-box;
 	z-index: 2;
 }
+
 .custom-checkbox input[type="checkbox"]:checked + label:after {
 	content: '';
 	position: absolute;

@@ -1,6 +1,6 @@
 <template>
 <div class="">
-    <form v-if="currentDeveloper"> 
+    <form v-if="id"> 
         <h3>Editar Developer</h3>
         <div class="form-group" :class="{ 'form-group--error': $v.nome.$error }" >
             <label>Nome</label>
@@ -14,14 +14,18 @@
           <div class="col-md-4">
             <div class="form-group" :class="{ 'form-group--error': $v.sexo.$error }">
                 <label>Sexo</label>
-                <input type="text" class="form-control" v-model.trim="sexo"  @input="setSexo($event.target.value)">
+                <select class="form-control " v-model.trim="sexo" @change="setSexo($event.target.value)" aria-label="Selecione">
+                  <option  value="M">Masculino</option>
+                  <option  value="F">Feminino</option>
+                </select>
+                <!-- <input type="text" class="form-control" v-model.trim="sexo"  @input="setSexo($event.target.value)"> -->
             </div>
             <div class="error alert alert-danger" role="alert" v-if="!$v.sexo.required">Sexo é obrigatório</div>
           </div>
           <div class="col-md-4">
             <div class="form-group">
                 <label>Idade</label>
-                <input type="text" class="form-control" v-model="currentDeveloper.idade" required>
+                <input type="text" class="form-control" v-model.trim="idade" required>
             </div>
           </div>
           <div class="col-md-4">
@@ -44,7 +48,7 @@
 
         <div class="modal-footer">
             <input type="button" class="btn btn-default" value="Cancel" @click="returnList">
-            <input type="button" class="btn btn-info"    value="Salvar" @click="updateDeveloper" :disabled="disabled">
+            <input type="button" class="btn btn-success"    value="Salvar" @click="updateDeveloper" :disabled="$v.$invalid">
         </div>
     </form>
     <p>{{ message }}</p>
@@ -53,14 +57,14 @@
 </template>
 
 <script>
-import TutorialDataService from "../services/TutorialDataService";
+import DeveloperDataService from "../services/DeveloperDataService";
 import { required, minLength, maxLength } from '../../node_modules/vuelidate/lib/validators';
 
 export default {
   name: "developer",
   data() {
     return {
-      currentDeveloper: null,
+      id:'',
       nome:'',
       sexo: '',
       idade: '',
@@ -91,44 +95,47 @@ export default {
   methods: {
     setNome(value) {
       this.nome = value
-      this.$v.nome.$touch()
-      this.disabled = (!this.$v.nome.required || !this.$v.nome.minLength || !this.$v.nome.maxLength);
+      this.$v.nome.$touch();
     },
 
     setSexo(value) {
       this.sexo = value
-      this.$v.sexo.$touch()
-      this.disabled = (!this.$v.sexo.required);
+      this.$v.sexo.$touch();
     },
     setDataNascimento(value) {
       this.datanascimento = value
-      this.$v.datanascimento.$touch()
-      this.disabled = (!this.$v.datanascimento.required);
+      this.$v.datanascimento.$touch();
     },
     setHobby(value) {
       this.hobby = value
-      this.$v.hobby.$touch()
-      this.disabled = (!this.$v.hobby.required || !this.$v.hobby.minLength || !this.$v.nome.maxLength);
+      this.$v.hobby.$touch();
     },
 
     getDeveloper(id) {
-      TutorialDataService.get(id)
+      DeveloperDataService.get(id)
         .then(response => {
+          this.id = response.data.data.id;
           this.nome = response.data.data.nome;
           this.sexo = response.data.data.sexo;
           this.idade = response.data.data.idade;
           this.datanascimento = response.data.data.datanascimento;
           this.hobby = response.data.data.hobby;
-
-          this.currentDeveloper = response.data.data;
-
+          
         })
         .catch(e => {
           console.log(e);
         });
     },
     updateDeveloper() {
-      TutorialDataService.update(this.currentDeveloper.id, this.currentDeveloper)
+      var dados = {
+        nome: this.nome,
+        sexo: this.sexo,
+        idade: this.idade,
+        datanascimento: this.datanascimento,
+        hobby: this.hobby
+      };
+
+      DeveloperDataService.update(this.id, dados)
         .then(response => {
           this.message = response.data.data[0];
           setTimeout(() => this.$router.push({ name: "developers" }), 1500);

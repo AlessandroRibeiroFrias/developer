@@ -4,12 +4,12 @@
       <router-link to="/" class="navbar-brand">CRUD Developer</router-link>
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
-          <router-link to="/developers" class="nav-link">Developer</router-link>
+          <router-link to="/developers" class="nav-link">Inicio</router-link>
         </li>
       </div>
     </nav>
 
-    <div class="container mt-3">
+    <div class="container mt-1">
       <router-view />
     </div>
   </div>

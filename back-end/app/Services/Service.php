@@ -74,9 +74,11 @@ class Service{
             return ResponseDefault::retorno([], 404);
         }
 
-        $this->repository->destroy($dadosDestroy, $id);
+        if($this->repository->destroy($dadosDestroy, $id)){
+			return ResponseDefault::retorno(['Sucesso ao deletar o registro'], 200);
+		};
 
-        return ResponseDefault::retorno([], 200);
+		return ResponseDefault::retorno(['Erro ao deletar o registro.'], 400);
 
     }
 

@@ -19,9 +19,9 @@ export default new Router({
       component: () => import("./components/Developer")
     },
     {
-      path: "/tutorials/:id",
-      name: "tutorial-details",
-      component: () => import("./components/Tutorial")
+      path: "/develelopers/:id",
+      name: "develeloper-details",
+      component: () => import("./components/Developer")
     },
     {
       path: "/add",
