@@ -1,13 +1,22 @@
 #!/bin/bash
 echo "Criando Ambientes"
+
+echo "Criando Back End"
 echo ""
 
-cd /back-end &&
-docker-compose up -d --build &&
+cd "back-end" &&
+docker-compose up -d --build --force-recreate &&
 cd src/ &&
 cp .env.example .env &&
 docker-compose run artisan key:generate &&
-docker-composer run artisan migrate:fresh --seed &&
+docker-compose run artisan migrate:fresh --seed &&
 
 echo "Backend executando em: http://localhost:7000/"
-read -p "Pressione um botão para continuar..."
+
+echo "Criando Front End"
+echo ""
+
+cd ..
+cd ..
+cd "front-end"
+docker-compose up
