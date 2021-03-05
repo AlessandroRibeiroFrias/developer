@@ -1,5 +1,5 @@
 /node_modules
-/mysql
+/mysql/*
 /src/public/hot
 /src/public/storage
 /src/storage/*.key
