@@ -1,5 +1,6 @@
 /node_modules
 /mysql/*
+!mysql/.gitkeep
 /src/public/hot
 /src/public/storage
 /src/storage/*.key
