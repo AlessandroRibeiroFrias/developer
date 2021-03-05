@@ -10,7 +10,7 @@ class DeveloperDataService {
   }
 
   create(data) {
-    return http.post("/developers", data);
+    return http.post("/developers", data); 
   }
 
   update(id, data) {
