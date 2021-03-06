@@ -1,5 +1,12 @@
 ## Crud de Developers.
 
+### Descrição
+##### Crud simples de developer, utilizando as seguintes tecnologias:
+###### - Laravel 
+###### - Vue.js
+###### - Mysql
+###### - Docker
+
 ### Instalação
 - Clonar o projeto (git clone https://github.com/AlessandroRibeiroFrias/developer.git)
 - Executar o arquivo: developerInstall.sh
