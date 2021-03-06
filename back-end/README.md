@@ -31,14 +31,11 @@
 #### PUT  `developers/{id_developer}`
 ##### Atualiza developer de acordo com o id.
 ###### Campos a serem informados:
-#
-
-> nome: valor obrigatório, string(50).
+> nome: valor obrigatório, string(50);
 > sexo: valor obrigatório, char(1).
-> idade: valor opcional, se não informado, calculado através do campo datanascimento.
+> idade: valor opcional, se não informado, calculado atraves do campo datanascimento.
 > hobby: valor obrigatório, string(100).
 > data: valor obrigatório, date.
-#
 ###### Exemplo Json:
 #
 ```json
