@@ -42,6 +42,7 @@
       </div>
     </div>
     <p>{{ message }}</p>
+    <FlashMessage></FlashMessage>
   </div>
 </template>
 
@@ -94,12 +95,21 @@ export default {
     formatDate(dateAlter){
       return moment(String(dateAlter)).format('DD/MM/YYYY');
     },
+
     deleteDeveloper(idDeveloper) {
       DeveloperDataService.delete(idDeveloper)
         .then(response => {
-          console.log(response.data);
-          this.message = response.data.data[0];
-          setTimeout(() => this.retrieveDeveloper(), 1500);
+
+          this.flashMessage.success({
+              title: 'Sucesso',
+              message: response.data.data[0],
+              time: 2000,
+              flashMessageStyle: {
+                  backgroundColor: 'linear-gradient(#e66465, #9198e5)'
+              }
+          });
+
+          setTimeout(() => this.retrieveDeveloper(), 2500);
     
         })
         .catch(e => {

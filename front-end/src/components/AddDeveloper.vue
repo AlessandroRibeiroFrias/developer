@@ -49,6 +49,7 @@
         <input type="button" class="btn btn-success"    value="Salvar" @click="saveDeveloper" :disabled="$v.$invalid">
     </div>
   <p>{{ message }}</p>
+  <FlashMessage></FlashMessage>
 </div>
 
 </template>
@@ -140,8 +141,16 @@ export default {
 
       DeveloperDataService.create(data)
         .then(response => {
-          this.message = response.data.data[0];
-          setTimeout(() => this.$router.push({ name: "developers" }), 1500);
+          this.flashMessage.success({
+              title: 'Sucesso',
+              message: response.data.data[0],
+              time: 2000,
+              flashMessageStyle: {
+                  backgroundColor: 'linear-gradient(#e66465, #9198e5)'
+              }
+          });
+
+          setTimeout(() => this.$router.push({ name: "developers" }), 2500);
         })
         .catch(e => {
           console.log(e);

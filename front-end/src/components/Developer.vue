@@ -52,6 +52,7 @@
         </div>
     </form>
     <p>{{ message }}</p>
+    <FlashMessage></FlashMessage>
 </div>
 
 </template>
@@ -137,8 +138,16 @@ export default {
 
       DeveloperDataService.update(this.id, dados)
         .then(response => {
-          this.message = response.data.data[0];
-          setTimeout(() => this.$router.push({ name: "developers" }), 1500);
+          this.flashMessage.success({
+              title: 'Sucesso',
+              message: response.data.data[0],
+              time: 2000,
+              flashMessageStyle: {
+                  backgroundColor: 'linear-gradient(#e66465, #9198e5)'
+              }
+          });
+         setTimeout(() => this.$router.push({ name: "developers" }), 2500);
+
         })
         .catch(e => {
           console.log(e);
