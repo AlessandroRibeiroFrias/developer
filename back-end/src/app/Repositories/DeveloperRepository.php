@@ -56,7 +56,6 @@ class DeveloperRepository {
         $this->developer->idade = $dados->idade;
         $this->developer->hobby = $dados->hobby;
         $this->developer->datanascimento = $dados->datanascimento;
-        // teste
         return $this->developer->save();
    }
 }
