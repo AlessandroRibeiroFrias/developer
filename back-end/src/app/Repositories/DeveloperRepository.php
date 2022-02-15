@@ -49,7 +49,7 @@ class DeveloperRepository {
           return $developerDelete->delete($id);
      }
 
-   public function store($dados)
+   public function novoDeveloper($dados)
    {
         $this->developer->nome = $dados->nome;
         $this->developer->sexo = $dados->sexo;
