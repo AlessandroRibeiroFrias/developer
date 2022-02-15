@@ -44,10 +44,10 @@ class DeveloperRepository {
         return $developerChange->save();
    }
 
-   public function destroy($developerDelete, $id)
-   {
-        return $developerDelete->delete($id);
-   }
+     public function destroy($developerDelete, $id)
+     {
+          return $developerDelete->delete($id);
+     }
 
    public function store($dados)
    {
